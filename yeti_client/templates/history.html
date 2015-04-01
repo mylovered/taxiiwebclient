@@ -1,0 +1,32 @@
+{% include "header.html" %}
+
+<h2>Event Log</h2>
+
+<table id="list">
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>User</th>
+            <th>Server</th>
+            <th>Collection</th>
+            <th>Operation</th>
+            <th>Result</th>
+            <th>Contents</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for e in event_history %}
+        <tr>
+            <td>{{ e.timestamp|date:"Y-m-d\TH:i:s" }}</td>
+            <td>{{ e.user }}</td>
+            <td>{{ e.server }}</td>
+            <td>{{ e.collection }}</td>
+            <td>{{ e.operation }}</td>
+            <td>{{ e.result }}</td>
+            <td>{{ e.contents|linebreaksbr }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include "footer.html" %}

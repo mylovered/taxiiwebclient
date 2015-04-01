@@ -1,0 +1,11 @@
+    <tr>
+        <td colspan="4">Last poll at: {{ poll_timestamp|date:"D j F Y H:i.s T" }}</td>
+    </tr>
+{% for f in received_files %}
+    <tr>
+        <td>{{ f.timestamp|date:"Y-m-d\TH:i:s" }}</td>
+        <td><a href="{{ settings.MEDIA_URL }}received/{{ f.filename }}">{{ f.filename }}</a></td>
+        <td>{{ f.server }}</td>
+        <td>{{ f.collection }}</td>
+    </tr>
+{% endfor %}

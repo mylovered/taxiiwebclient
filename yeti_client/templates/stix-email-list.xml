@@ -1,0 +1,41 @@
+<stix:STIX_Package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:stix="http://stix.mitre.org/stix-1" xmlns:indicator="http://stix.mitre.org/Indicator-2"
+    xmlns:cybox="http://cybox.mitre.org/cybox-2"
+    xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
+    xmlns:AddressObj="http://cybox.mitre.org/objects#AddressObject-2"
+    xmlns:cyboxVocabs="http://cybox.mitre.org/default_vocabularies-2"
+    xmlns:stixVocabs="http://stix.mitre.org/default_vocabularies-1"
+    xmlns:ExampleNamespace="http://example.com/"
+    xsi:schemaLocation="
+    http://stix.mitre.org/stix-1 http://stix.mitre.org/XMLSchema/core/1.0.1/stix_core.xsd
+    http://stix.mitre.org/Indicator-2 http://stix.mitre.org/XMLSchema/indicator/2.0.1/indicator.xsd
+    http://cybox.mitre.org/default_vocabularies-2 http://cybox.mitre.org/XMLSchema/default_vocabularies/2.0.1/cybox_default_vocabularies.xsd
+    http://stix.mitre.org/default_vocabularies-1 http://stix.mitre.org/XMLSchema/default_vocabularies/1.0.1/stix_default_vocabularies.xsd
+    http://cybox.mitre.org/objects#AddressObject-2 http://cybox.mitre.org/XMLSchema/objects/Address/2.0.1/Address_Object.xsd
+    http://cybox.mitre.org/objects#EmailMessageObject-2 http://cybox.mitre.org/XMLSchema/objects/Email_Message/2.1/Email_Message_Object.xsd
+    http://cybox.mitre.org/objects#AddressObject-2 http://cybox.mitre.org/XMLSchema/objects/Address/2.1/Address_Object.xsd"
+    id="ExampleNamespace:STIXPackage-33fe3b22-0201-47cf-85d0-97c02164528d" version="1.0.1">
+    <stix:STIX_Header>
+        <stix:Title>Example watchlist that contains Email information.</stix:Title>
+        <stix:Package_Intent xsi:type="stixVocabs:PackageIntentVocab-1.0">Indicators - Watchlist</stix:Package_Intent>
+    </stix:STIX_Header>
+    <stix:Indicators>
+        <stix:Indicator xsi:type="indicator:IndicatorType"
+            id="ExampleNamespace:Indicator-33fe3b22-0201-47cf-85d0-97c02164528d">
+            <indicator:Type xsi:type="stixVocabs:IndicatorTypeVocab-1.0">Malicious E-mail</indicator:Type>
+            <indicator:Description>{{ description }}</indicator:Description>
+            <indicator:Observable
+                id="ExampleNamespace:Observable-1037c602-9e1c-43fd-8d07-c8e1d01466d1">
+                <cybox:Object id="ExampleNamespace:Object-977c4bb1-0a5d-4c36-9bd7-99b5c2082fdd">
+                    <cybox:Properties xsi:type="EmailMessageObj:EmailMessageObjectType">
+                        <EmailMessageObj:Header>
+                            <EmailMessageObj:From>
+                                <AddressObj:Address_Value condition="Equals" apply_condition="ANY">{{ stix_email_list }}</AddressObj:Address_Value>
+                            </EmailMessageObj:From>
+                        </EmailMessageObj:Header>
+                    </cybox:Properties>
+                </cybox:Object>
+            </indicator:Observable>
+        </stix:Indicator>
+    </stix:Indicators>
+</stix:STIX_Package>

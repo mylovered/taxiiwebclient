@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+{% load staticfiles %}
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ CLIENT_NAME }} v{{ VERSION }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+    <script src="{% static 'jquery-2.1.1.min.js' %}"></script>
+</head>
+
+<body>
+<span><a href="{% url 'index' %}"><img src="{% static 'yeti.png' %}" /></a></span>
+<span id="header">{{ CLIENT_NAME }} </span>
+<span id="version">v{{ VERSION }}</span>
+{% if user.is_authenticated %}
+<p><div id="menu">
+    <a href="{% url 'index' %}">Home</a> |
+    <a href="{% url 'history' %}">Event Log</a> |
+    {% if ENABLE_ALERT_VIEWER %}
+    <a href="{% url 'alerts' %}">Alert Viewer</a> |
+    {% endif %}
+    {% if user.is_superuser %}
+    <a href="{% url 'settings' %}">Settings</a> |
+    {% endif %}
+    <a href="{% url 'logout' %}">Logout</a>
+</div></p>
+{% endif %}
+
+<hr />
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}

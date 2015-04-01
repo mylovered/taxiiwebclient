@@ -1,0 +1,70 @@
+{% include "header.html" %}
+
+{% if polling %}
+<script>
+    $(document).ready(function() {
+        setInterval( function() {
+            $("#received-files").load("{% url 'index' %}"); }, {{ poll_rate }});
+    });
+</script>
+{% endif %}
+
+<h2>Push to the TAXII Server</h2>
+
+<h3>Document (File Upload)</h3>
+
+<form enctype="multipart/form-data" method="POST" action="{% url 'push_file' %}">
+    {% csrf_token %}
+    {{ file_form.as_p }}
+    <p><input type="submit" value="Push File" /></p>
+</form>
+
+<h3>IP List (STIX)</h3>
+
+<form method="POST" action="{% url 'push_stix_ip' %}">
+    {% csrf_token %}
+    <table id="ywc-table">
+        {{ stix_ip_form.as_table }}
+    </table>
+    <div style="font-size: 0.8em">Example: 192.168.0.5, 10.0.0.42</div>
+    <p><input type="submit" value="Push IP List" /></p>
+</form>
+
+<h3>E-mail List (STIX)</h3>
+
+<form method="POST" action="{% url 'push_stix_email' %}">
+    {% csrf_token %}
+    <table id="ywc-table">
+        {{ stix_email_form.as_table }}
+    </table>
+    <div style="font-size: 0.8em">Example: foo@example.com, bar@example.com</div>
+    <p><input type="submit" value="Push E-mail List" /></p>
+</form>
+
+<hr />
+
+<h2>Pull from TAXII Server</h2>
+
+<form method="POST" action="{% url 'pull' %}">
+    {% csrf_token %}
+    {% if polling %}
+        <p><input type="submit" value="Stop Polling" /></p>
+    {% else %}
+        <p><input type="submit" value="Start Polling" /></p>
+    {% endif %}
+</form>
+<table id="list">
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>Filename</th>
+            <th>Server</th>
+            <th>Collection</th>
+        </tr>
+    </thead>
+    <tbody id="received-files">
+        {% include "index_poll_ajax.html" %}
+    </tbody>
+</table>
+
+{% include "footer.html" %}

@@ -1,0 +1,17 @@
+{% include "header.html" %}
+
+<h1>STIX Data Push Examples</h1>
+
+<h2>Push an IP List</h2>
+
+<form enctype="multipart/form-data" method="POST" action="{% url 'push_stix' %}">
+    {% csrf_token %}
+    {{ push_stix_form.non_field_errors }}
+    {{ push_stix_form.ip_list.errors }}
+    <label for="id_ip_list">List of IP addresses: </label>
+    {{ push_stix_form.ip_list }}
+    <span style="font-size: 0.8em">(Example, 192.168.0.5, 10.0.0.42)</span>
+    <p><input type="submit" value="Push IP List" /></p>
+</form>
+
+{% include "footer.html" %}

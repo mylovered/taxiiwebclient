@@ -1,0 +1,30 @@
+To start using this application, you need the following dependencies:
+
+    Solo: provides SingletonModel objects
+    pip install django-solo
+
+    South: provides database migrations
+    pip install south
+
+Then initialize the database:
+
+    python manage.py syncdb
+    python manage.py migrate yeti_client
+
+To run using the development server on port 8000:
+
+    python manage.py runserver 0.0.0.0:8000
+
+Once running, you can access the application in your browser:
+
+http://127.0.0.1:8000/yeti_client
+
+For the admin interface:
+
+http://127.0.0.1:8000/admin
+
+Like any Django application, this can also be run on any web
+server, such as Apache or nginx, which should certainly be
+used for production deployments.
+
+That's it!
